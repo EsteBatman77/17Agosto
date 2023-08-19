@@ -51,21 +51,21 @@ int main()
         for(int i = 0; i < hex.length(); i += 2){
             if(i == 0 ){
                 if(hex[i] < 10){
-                    hexR = (hex[i] * 10 + hex[i+1]) / 10;
+                    hexR = (hex[i] * 10 + hex[i+1]) ;
                 }else{
-                    hexR = (hex[i] + hex[i+1]) / 10;
+                    hexR = (hex[i] + hex[i+1]) ;
                 }
             }else if(i == 2){
                  if(hex[i] < 10){
-                    hexG = (hex[i] * 10 + hex[i+1]) / 10;
+                    hexG = (hex[i] * 10 + hex[i+1]) ;
                 }else{
-                    hexG = (hex[i] + hex[i+1]) / 10;
+                    hexG = (hex[i] + hex[i+1]) ;
                 }  
             }else{
                  if(hex[i] < 10){
-                    hexB = (hex[i] * 10 + hex[i+1]) / 10;
+                    hexB = (hex[i] * 10 + hex[i+1]) ;
                 }else{
-                    hexB = (hex[i] + hex[i+1]) / 10;
+                    hexB = (hex[i] + hex[i+1]) ;
                 }
             }
         }
