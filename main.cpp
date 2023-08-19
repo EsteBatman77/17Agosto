@@ -9,66 +9,52 @@ using namespace std;
 #define BLINKING_RATE     100ms
 UnbufferedSerial serial(USBTX, USBRX, 9600);
 
-int hexToDecimal(string hexNumber) {
-    int decimalNumber = 0;
-    int base = 16; // Base hexadecimal
-
-    // Recorrer el número hexadecimal de derecha a izquierda
-    for (int i = hexNumber.size() - 1, exp = 0; i >= 0; i--, exp++) {
-        char digit = hexNumber[i];
+int hexaDeci(string nHex) {
+    int nDeci = 0;
+    int base = 16;
+    
+    for (int i = nHex.size() - 1, exp = 0; i >= 0; i--, exp++) {
+        char digit = nHex[i];
 
         if (isdigit(digit)) {
-            decimalNumber += (digit - '0') * pow(base, exp);
+            nDeci += (digit - '0') * pow(base, exp);
         } else if (isalpha(digit)) {
-            // Convertir letras a números equivalentes (A=10, B=11, ..., F=15)
-            decimalNumber += (toupper(digit) - 'A' + 10) * pow(base, exp);
+            // (A=10, B=11, ..., F=15)
+            nDeci += (toupper(digit) - 'A' + 10) * pow(base, exp);
         } else {
-            // Carácter no válido en el número hexadecimal
+            // Error 
             cout << "Caracter no valido en el numero hexadecimal: " << digit << endl;
-            return -1; // Valor de error
+            return -1;
         }
     }
 
-    return decimalNumber;
+    return nDeci;
 }
 
 int main()
 {
     // Initialise the digital pin LED1 as an output
-    PwmOut ledR(LED1);
-    PwmOut ledG(LED2);
-    PwmOut ledB(LED3);
-
+    PwmOut red(LED1);
+    PwmOut green(LED2);
+    PwmOut blue(LED3);
+    
+    int hexV;
     float pwmR = 0.0;
     float pwmG = 0.0;
     float pwmB = 0.0;
    
-
-
     while (true) {
-        /*cout << "Ingresa la intensidad del led rojo: ";
-        cin >> pwmR;
-
-        cout << "Ingresa la intensidad del led verde: ";
-        cin >> pwmG;
-
-        cout << "Ingresa la intensidad del led azul: ";
-        cin >> pwmB;*/
-        string hex  = "";
-        string hexR  = "";
-        string hexG  = "";
-        string hexB  = "";
 
         cout << "Ingrese el código hexadecimal: ";
-        cin >> hex;
+        cin >> hexV;
 
-        for(int i = 0; i < hex.length(); i++){
-            if(i == 0 || i == 1){
-                hexR += hex[i]; 
-            }else if(i == 2 || i == 3){
-                hexG += hex[i];  
+        for(int i = 0; i < hex.length(); i += 2){
+            if(i == 0 ){
+                hexR = hex[i] * 10 + hex[i+1]; 
+            }else if(i == 2){
+                hexG = hex[i] *10 + hex[i+1];  
             }else{
-                hexB += hex[i]; 
+                hexB = hex[i] * 10 + hex[i+1];
             }
         }
         
